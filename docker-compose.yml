@@ -6,9 +6,6 @@ services:
   # cloudflare tunnel
   cloudflare-tunnel:
     image: cloudflare/cloudflared
-    #build:
-    #  context: ./src
-    #  dockerfile: ./Dockerfile
     container_name: cloudflare-tunnel
     hostname: cloudflare-tunnel
     restart: unless-stopped
@@ -16,9 +13,9 @@ services:
     command: tunnel run
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./config/hosts:/etc/hosts
+      - ./config:/etc/config
     environment:
       - "TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}"
     labels:
-      # enbale watchtower updates
+      # enable watchtower updates
       - "com.centurylinklabs.watchtower.enable=true"
